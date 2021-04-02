@@ -1,21 +1,11 @@
 package dev.paulshields.lok
 
-import java.time.LocalDateTime
-
 @Suppress("TooManyFunctions")
 class Logger(private val className: String) {
-    fun log(logLevel: LogLevel, message: String) {
-        if (logLevel == LogLevel.ERROR) {
-            System.err.println(buildMessage(logLevel.name, message))
-        } else {
-            println(buildMessage(logLevel.name, message))
-        }
-    }
+    private val underlyingLogger = UnderlyingLogger()
 
-    fun log(logLevel: LogLevel, message: String, exception: Exception) {
-        log(logLevel, message)
-        exception.printStackTrace()
-    }
+    fun log(logLevel: LogLevel, message: String) = underlyingLogger.log(className, logLevel, message)
+    fun log(logLevel: LogLevel, message: String, exception: Exception) = underlyingLogger.log(className, logLevel, message, exception)
 
     fun trace(message: String) = log(LogLevel.TRACE, message)
     fun debug(message: String) = log(LogLevel.DEBUG, message)
@@ -29,30 +19,15 @@ class Logger(private val className: String) {
     fun warn(message: String, exception: Exception) = log(LogLevel.WARN, message, exception)
     fun error(message: String, exception: Exception) = log(LogLevel.ERROR, message, exception)
 
-    fun logIfEqual(item1: Any?, item2: Any?, message: String, logLevel: LogLevel = LogLevel.INFO) {
-        if (item1 == item2) {
-            log(logLevel, message)
-        }
-    }
+    fun logIfEqual(item1: Any?, item2: Any?, message: String, logLevel: LogLevel = LogLevel.INFO) =
+        underlyingLogger.logIfEqual(className, item1, item2, message, logLevel)
 
-    fun logIfNotEqual(item1: Any?, item2: Any?, message: String, logLevel: LogLevel = LogLevel.INFO) {
-        if (item1 != item2) {
-            log(logLevel, message)
-        }
-    }
+    fun logIfNotEqual(item1: Any?, item2: Any?, message: String, logLevel: LogLevel = LogLevel.INFO) =
+        underlyingLogger.logIfNotEqual(className, item1, item2, message, logLevel)
 
-    fun logIfNull(item: Any?, message: String, logLevel: LogLevel = LogLevel.INFO) {
-        if (item == null) {
-            log(logLevel, message)
-        }
-    }
+    fun logIfNull(item: Any?, message: String, logLevel: LogLevel = LogLevel.INFO) =
+        underlyingLogger.logIfNull(className, item, message, logLevel)
 
-    fun logIfNotNull(item: Any?, message: String, logLevel: LogLevel = LogLevel.INFO) {
-        if (item != null) {
-            log(logLevel, message)
-        }
-    }
-
-    private fun buildMessage(logLevel: String, message: String) =
-        "${LocalDateTime.now()} $logLevel @ $className: $message"
+    fun logIfNotNull(item: Any?, message: String, logLevel: LogLevel = LogLevel.INFO) =
+        underlyingLogger.logIfNotNull(className, item, message, logLevel)
 }

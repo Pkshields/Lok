@@ -1,22 +1,22 @@
-package dev.paulshields.lok.logger
+package dev.paulshields.lok.underlyinglogger
 
 import assertk.assertThat
 import assertk.assertions.isEmpty
 import dev.paulshields.lok.BaseLoggerTest
 import dev.paulshields.lok.LogLevel
-import dev.paulshields.lok.logger
+import dev.paulshields.lok.UnderlyingLogger
 import dev.paulshields.lok.testcommon.containsAll
 import org.junit.jupiter.api.Test
 
-class ConditionalLoggerTest : BaseLoggerTest() {
-    private val target by logger()
+class ConditionalUnderlyingLoggerTest : BaseLoggerTest() {
+    private val target = UnderlyingLogger()
 
     @Test
     fun `should output log line if items are equal`() {
         val item1 = 1
         val item2 = 1
 
-        target.logIfEqual(item1, item2, message, LogLevel.INFO)
+        target.logIfEqual(className, item1, item2, message, LogLevel.INFO)
 
         assertThat(stdOutOutput()).containsAll("INFO", message)
     }
@@ -26,7 +26,7 @@ class ConditionalLoggerTest : BaseLoggerTest() {
         val item1 = 1
         val item2 = 2
 
-        target.logIfEqual(item1, item2, message, LogLevel.INFO)
+        target.logIfEqual(className, item1, item2, message, LogLevel.INFO)
 
         assertThat(stdOutOutput()).isEmpty()
     }
@@ -36,7 +36,7 @@ class ConditionalLoggerTest : BaseLoggerTest() {
         val item1 = 1
         val item2 = 2
 
-        target.logIfNotEqual(item1, item2, message, LogLevel.INFO)
+        target.logIfNotEqual(className, item1, item2, message, LogLevel.INFO)
 
         assertThat(stdOutOutput()).containsAll("INFO", message)
     }
@@ -46,35 +46,35 @@ class ConditionalLoggerTest : BaseLoggerTest() {
         val item1 = 1
         val item2 = 1
 
-        target.logIfNotEqual(item1, item2, message, LogLevel.INFO)
+        target.logIfNotEqual(className, item1, item2, message, LogLevel.INFO)
 
         assertThat(stdOutOutput()).isEmpty()
     }
 
     @Test
     fun `should output log line if item is null`() {
-        target.logIfNull(null, message, LogLevel.INFO)
+        target.logIfNull(className, null, message, LogLevel.INFO)
 
         assertThat(stdOutOutput()).containsAll("INFO", message)
     }
 
     @Test
     fun `should not output log line if item is not null`() {
-        target.logIfNull(1, message, LogLevel.INFO)
+        target.logIfNull(className, 1, message, LogLevel.INFO)
 
         assertThat(stdOutOutput()).isEmpty()
     }
 
     @Test
     fun `should output log line if item is not null`() {
-        target.logIfNotNull(1, message, LogLevel.INFO)
+        target.logIfNotNull(className, 1, message, LogLevel.INFO)
 
         assertThat(stdOutOutput()).containsAll("INFO", message)
     }
 
     @Test
     fun `should not output log line if item is null`() {
-        target.logIfNotNull(null, message, LogLevel.INFO)
+        target.logIfNotNull(className, null, message, LogLevel.INFO)
 
         assertThat(stdOutOutput()).isEmpty()
     }

@@ -1,10 +1,14 @@
 package dev.paulshields.lok.logger
 
 import assertk.assertThat
+import dev.paulshields.lok.BaseLoggerTest
+import dev.paulshields.lok.logger
 import dev.paulshields.lok.testcommon.containsAll
 import org.junit.jupiter.api.Test
 
 class HelperMethodsLoggerTest : BaseLoggerTest() {
+    private val target by logger()
+
     @Test
     fun `should output trace message to stdout`() {
         target.trace(message)

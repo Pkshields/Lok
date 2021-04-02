@@ -1,14 +1,13 @@
-package dev.paulshields.lok.logger
+package dev.paulshields.lok
 
 import assertk.assertThat
-import dev.paulshields.lok.logger
 import dev.paulshields.lok.testcommon.containsAll
 import org.junit.jupiter.api.BeforeEach
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 
 open class BaseLoggerTest {
-    protected val target by logger()
+    protected val className = "GoodCodeClass"
     protected val message = "Something might go wrong"
     protected val exception = IllegalAccessException("Something might go wrong")
 
