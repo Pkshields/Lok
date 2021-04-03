@@ -9,6 +9,6 @@ class DelegatedLoggerTest {
     fun `should create a logger`() {
         val result by logger()
 
-        assertThat(result).isInstanceOf(Logger::class)
+        assertThat(result).isInstanceOf(ClassLogger::class)
     }
 }

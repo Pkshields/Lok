@@ -1,4 +1,4 @@
-package dev.paulshields.lok.logger
+package dev.paulshields.lok.classlogger
 
 import assertk.assertThat
 import assertk.assertions.isEmpty
@@ -8,7 +8,7 @@ import dev.paulshields.lok.logger
 import dev.paulshields.lok.testcommon.containsAll
 import org.junit.jupiter.api.Test
 
-class ConditionalLoggerTest : BaseLoggerTest() {
+class ConditionalClassLoggerTest : BaseLoggerTest() {
     private val target by logger()
 
     @Test

@@ -1,53 +1,52 @@
-package dev.paulshields.lok.underlyinglogger
+package dev.paulshields.lok.classlogger
 
 import assertk.assertThat
 import dev.paulshields.lok.BaseLoggerTest
-import dev.paulshields.lok.LogLevel
-import dev.paulshields.lok.UnderlyingLogger
+import dev.paulshields.lok.logger
 import dev.paulshields.lok.testcommon.containsAll
 import org.junit.jupiter.api.Test
 
-class StandardUnderlyingLoggerTest : BaseLoggerTest() {
-    private val target = UnderlyingLogger()
+class HelperMethodsClassLoggerTest : BaseLoggerTest() {
+    private val target by logger()
 
     @Test
     fun `should output trace message to stdout`() {
-        target.log(className, LogLevel.TRACE, message)
+        target.trace(message)
 
         assertThat(stdOutOutput()).containsAll("TRACE", message)
     }
 
     @Test
     fun `should output debug message to stdout`() {
-        target.log(className, LogLevel.DEBUG, message)
+        target.debug(message)
 
         assertThat(stdOutOutput()).containsAll("DEBUG", message)
     }
 
     @Test
     fun `should output info message to stdout`() {
-        target.log(className, LogLevel.INFO, message)
+        target.info(message)
 
         assertThat(stdOutOutput()).containsAll("INFO", message)
     }
 
     @Test
     fun `should output warn message to stdout`() {
-        target.log(className, LogLevel.WARN, message)
+        target.warn(message)
 
         assertThat(stdOutOutput()).containsAll("WARN", message)
     }
 
     @Test
     fun `should output error message to stderr`() {
-        target.log(className, LogLevel.ERROR, message)
+        target.error(message)
 
         assertThat(stdErrOutput()).containsAll("ERROR", message)
     }
 
     @Test
     fun `should output trace message with exception message to stdout`() {
-        target.log(className, LogLevel.TRACE, message, exception)
+        target.trace(message, exception)
 
         assertThat(stdOutOutput()).containsAll("TRACE", message)
         assertThatStdErrContainsExceptionLogs()
@@ -55,7 +54,7 @@ class StandardUnderlyingLoggerTest : BaseLoggerTest() {
 
     @Test
     fun `should output debug message with exception to stdout`() {
-        target.log(className, LogLevel.DEBUG, message, exception)
+        target.debug(message, exception)
 
         assertThat(stdOutOutput()).containsAll("DEBUG", message)
         assertThatStdErrContainsExceptionLogs()
@@ -63,7 +62,7 @@ class StandardUnderlyingLoggerTest : BaseLoggerTest() {
 
     @Test
     fun `should output info message with exception to stdout`() {
-        target.log(className, LogLevel.INFO, message, exception)
+        target.info(message, exception)
 
         assertThat(stdOutOutput()).containsAll("INFO", message)
         assertThatStdErrContainsExceptionLogs()
@@ -71,7 +70,7 @@ class StandardUnderlyingLoggerTest : BaseLoggerTest() {
 
     @Test
     fun `should output warn message with exception to stdout`() {
-        target.log(className, LogLevel.WARN, message, exception)
+        target.warn(message, exception)
 
         assertThat(stdOutOutput()).containsAll("WARN", message)
         assertThatStdErrContainsExceptionLogs()
@@ -79,7 +78,7 @@ class StandardUnderlyingLoggerTest : BaseLoggerTest() {
 
     @Test
     fun `should output error message with exception to stderr`() {
-        target.log(className, LogLevel.ERROR, message, exception)
+        target.error(message, exception)
 
         assertThat(stdErrOutput()).containsAll("ERROR", message)
         assertThatStdErrContainsExceptionLogs()

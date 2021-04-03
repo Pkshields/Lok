@@ -1,13 +1,11 @@
 package dev.paulshields.lok
 
-@Suppress("TooManyFunctions")
-class Logger(private val className: String) {
-    companion object {
-        private val underlyingLogger = UnderlyingLogger()
-    }
+import dev.paulshields.lok.internal.logMessage
 
-    fun log(logLevel: LogLevel, message: String) = underlyingLogger.log(className, logLevel, message)
-    fun log(logLevel: LogLevel, message: String, exception: Exception) = underlyingLogger.log(className, logLevel, message, exception)
+@Suppress("TooManyFunctions")
+class ClassLogger(private val className: String) {
+    fun log(logLevel: LogLevel, message: String) = logMessage(className, logLevel, message)
+    fun log(logLevel: LogLevel, message: String, exception: Exception) = logMessage(className, logLevel, message, exception)
 
     fun trace(message: String) = log(LogLevel.TRACE, message)
     fun debug(message: String) = log(LogLevel.DEBUG, message)
@@ -22,14 +20,14 @@ class Logger(private val className: String) {
     fun error(message: String, exception: Exception) = log(LogLevel.ERROR, message, exception)
 
     fun logIfEqual(item1: Any?, item2: Any?, message: String, logLevel: LogLevel = LogLevel.INFO) =
-        underlyingLogger.logIfEqual(className, item1, item2, message, logLevel)
+        dev.paulshields.lok.internal.logIfEqual(className, item1, item2, message, logLevel)
 
     fun logIfNotEqual(item1: Any?, item2: Any?, message: String, logLevel: LogLevel = LogLevel.INFO) =
-        underlyingLogger.logIfNotEqual(className, item1, item2, message, logLevel)
+        dev.paulshields.lok.internal.logIfNotEqual(className, item1, item2, message, logLevel)
 
     fun logIfNull(item: Any?, message: String, logLevel: LogLevel = LogLevel.INFO) =
-        underlyingLogger.logIfNull(className, item, message, logLevel)
+        dev.paulshields.lok.internal.logIfNull(className, item, message, logLevel)
 
     fun logIfNotNull(item: Any?, message: String, logLevel: LogLevel = LogLevel.INFO) =
-        underlyingLogger.logIfNotNull(className, item, message, logLevel)
+        dev.paulshields.lok.internal.logIfNotNull(className, item, message, logLevel)
 }
