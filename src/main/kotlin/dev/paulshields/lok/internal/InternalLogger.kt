@@ -1,7 +1,6 @@
 package dev.paulshields.lok.internal
 
 import dev.paulshields.lok.LogLevel
-import java.time.LocalDateTime
 
 internal fun internalLogMessage(className: String, logLevel: LogLevel, message: String) {
     if (logLevel == LogLevel.ERROR) {
@@ -39,6 +38,3 @@ internal fun internalLogIfNotNull(className: String, item: Any?, message: String
         internalLogMessage(className, logLevel, message)
     }
 }
-
-private fun buildMessage(className: String, logLevel: String, message: String) =
-    "${LocalDateTime.now()} $logLevel @ $className: $message"

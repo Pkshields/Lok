@@ -1,6 +1,10 @@
 package dev.paulshields.lok
 
 import dev.paulshields.lok.internal.internalLogException
+import dev.paulshields.lok.internal.internalLogIfEqual
+import dev.paulshields.lok.internal.internalLogIfNotEqual
+import dev.paulshields.lok.internal.internalLogIfNotNull
+import dev.paulshields.lok.internal.internalLogIfNull
 import dev.paulshields.lok.internal.internalLogMessage
 
 fun logTrace(message: () -> String) = internalLogMessage(message.className, LogLevel.TRACE, message.invoke())
@@ -16,16 +20,16 @@ fun logWarn(exception: Exception, message: () -> String) = internalLogException(
 fun logError(exception: Exception, message: () -> String) = internalLogException(message.className, LogLevel.ERROR, message.invoke(), exception)
 
 fun logIfEqual(item1: Any?, item2: Any?, logLevel: LogLevel = LogLevel.INFO, message: () -> String) =
-    dev.paulshields.lok.internal.internalLogIfEqual(message.className, item1, item2, message.invoke(), logLevel)
+    internalLogIfEqual(message.className, item1, item2, message.invoke(), logLevel)
 
 fun logIfNotEqual(item1: Any?, item2: Any?, logLevel: LogLevel = LogLevel.INFO, message: () -> String) =
-    dev.paulshields.lok.internal.internalLogIfNotEqual(message.className, item1, item2, message.invoke(), logLevel)
+    internalLogIfNotEqual(message.className, item1, item2, message.invoke(), logLevel)
 
 fun logIfNull(item: Any?, logLevel: LogLevel = LogLevel.INFO, message: () -> String) =
-    dev.paulshields.lok.internal.internalLogIfNull(message.className, item, message.invoke(), logLevel)
+    internalLogIfNull(message.className, item, message.invoke(), logLevel)
 
 fun logIfNotNull(item: Any?, logLevel: LogLevel = LogLevel.INFO, message: () -> String) =
-    dev.paulshields.lok.internal.internalLogIfNotNull(message.className, item, message.invoke(), logLevel)
+    internalLogIfNotNull(message.className, item, message.invoke(), logLevel)
 
 private val (() -> String).className
     get() = this.javaClass.name
