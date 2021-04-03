@@ -2,7 +2,9 @@ package dev.paulshields.lok
 
 @Suppress("TooManyFunctions")
 class Logger(private val className: String) {
-    private val underlyingLogger = UnderlyingLogger()
+    companion object {
+        private val underlyingLogger = UnderlyingLogger()
+    }
 
     fun log(logLevel: LogLevel, message: String) = underlyingLogger.log(className, logLevel, message)
     fun log(logLevel: LogLevel, message: String, exception: Exception) = underlyingLogger.log(className, logLevel, message, exception)
