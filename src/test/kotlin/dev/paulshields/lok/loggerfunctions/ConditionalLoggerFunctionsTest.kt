@@ -2,6 +2,10 @@ package dev.paulshields.lok.loggerfunctions
 
 import dev.paulshields.lok.BaseLoggerTest
 import dev.paulshields.lok.LogLevel
+import dev.paulshields.lok.internal.internalLogIfEqual
+import dev.paulshields.lok.internal.internalLogIfNotEqual
+import dev.paulshields.lok.internal.internalLogIfNotNull
+import dev.paulshields.lok.internal.internalLogIfNull
 import dev.paulshields.lok.internal.internalLogMessage
 import dev.paulshields.lok.logIfEqual
 import dev.paulshields.lok.logIfNotEqual
@@ -20,7 +24,7 @@ class ConditionalLoggerFunctionsTest : BaseLoggerTest() {
 
         logIfEqual(item1, item2, LogLevel.INFO) { message }
 
-        verify { internalLogMessage(match { it.contains(className) }, LogLevel.INFO, message) }
+        verify { internalLogIfEqual(match { it.contains(className) }, item1, item2, message, LogLevel.INFO) }
     }
 
     @Test
@@ -40,7 +44,7 @@ class ConditionalLoggerFunctionsTest : BaseLoggerTest() {
 
         logIfNotEqual(item1, item2, LogLevel.INFO) { message }
 
-        verify { internalLogMessage(match { it.contains(className) }, LogLevel.INFO, message) }
+        verify { internalLogIfNotEqual(match { it.contains(className) }, item1, item2, message, LogLevel.INFO) }
     }
 
     @Test
@@ -57,7 +61,7 @@ class ConditionalLoggerFunctionsTest : BaseLoggerTest() {
     fun `should output log line if item is null`() {
         logIfNull(null, LogLevel.INFO) { message }
 
-        verify { internalLogMessage(match { it.contains(className) }, LogLevel.INFO, message) }
+        verify { internalLogIfNull(match { it.contains(className) }, null, message, LogLevel.INFO) }
     }
 
     @Test
@@ -71,7 +75,7 @@ class ConditionalLoggerFunctionsTest : BaseLoggerTest() {
     fun `should output log line if item is not null`() {
         logIfNotNull(1, LogLevel.INFO) { message }
 
-        verify { internalLogMessage(match { it.contains(className) }, LogLevel.INFO, message) }
+        verify { internalLogIfNotNull(match { it.contains(className) }, 1, message, LogLevel.INFO) }
     }
 
     @Test
