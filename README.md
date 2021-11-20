@@ -1,10 +1,48 @@
-# Lok
+# Lok 
+
+[![Release](https://jitpack.io/v/Pkshields/Lok.svg)](https://jitpack.io/#dev.paulshields/Lok)
 
 A simple no-config logger for Kotlin.
 
 ## Getting Started
 
-[TODO]
+#### Gradle Kotlin
+
+Add JitPack to your dependency repositories in Gradle.
+
+```kotlin
+repositories {
+    ...
+    maven("https://jitpack.io")
+}
+```
+
+Then add Lok to your dependencies.
+
+```kotlin
+dependencies {
+	implementation("dev.paulshields:lok:1.0")
+}
+```
+
+#### Gradle Groovy
+
+Add JitPack to your dependency repositories in Gradle.
+
+```gradle
+repositories {
+    ...
+    maven { url "https://jitpack.io" }
+}
+```
+
+Then add Lok to your dependencies.
+
+```gradle
+dependencies {
+	implementation 'dev.paulshields:lok:1.0'
+}
+```
 
 ## Usage
 
@@ -12,7 +50,7 @@ Lok has a variety of top level functions you can use for your logging needs.
 
 ### Standard logging functions
 
-```
+```kotlin
 package dev.paulshields.lok
 
 logTrace { "Hello world" }
@@ -30,7 +68,7 @@ logError(exception) { "Hello world" }
 
 ### Conditional functions
 
-```
+```kotlin
 logIfEqual(item1, item2, logLevel) { "Hello world" }
 
 logIfNotEqual(item1, item2, logLevel) { "Hello world" }
@@ -60,19 +98,19 @@ If you need to log within a scoped block of code, it's recommended you use a Log
 
 If you need to use an instance of a logger instead of the logger functions, you can do so by using the supplied delegate function.
 
-```
+```kotlin
 val logger by logger()
 ```
 
 Or, if you prefer some standard OOP code, you can instantiate the class directly.
 
-```
+```kotlin
 val logger = ClassLogger("ClassName")
 ```
 
 The API for the logger instance matches the available functions.
 
-```
+```kotlin
 target.trace("Hello world")
 target.debug("Hello world")
 target.info("Hello world")
@@ -98,7 +136,7 @@ target.logIfNotNull(item1, "Hello world", logLevel)
 
 ... Alright, fine, there is one piece of optional configuration. The minimum log level can be set using the `lokLogLevel` top level property.
 
-```
+```kotlin
 import dev.paulshields.lok.lokLogLevel
 
 lokLogLevel = LogLevel.TRACE
@@ -106,7 +144,7 @@ lokLogLevel = LogLevel.TRACE
 
 The minimum log level can also be set using a JVM environment variable.
 
-```
+```kotlin
 java -DLOG_LEVEL=TRACE your-incredible-application.jar
 ```
 
