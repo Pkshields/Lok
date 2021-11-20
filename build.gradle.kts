@@ -1,8 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jlleitschuh.gradle.ktlint.KtlintExtension
 
-group = "dev.paulshields"
-version = "1.0-SNAPSHOT"
+val libraryGroupId = "dev.paulshields"
+val libraryName = "lok"
+val libraryVersion = "1.0"
+
+group = "$libraryGroupId.$libraryName"
+version = libraryVersion
 
 plugins {
     kotlin("jvm") version "1.5.30"
@@ -19,6 +23,18 @@ repositories {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            groupId = libraryGroupId
+            artifactId = libraryName
+            version = libraryVersion
+
+            from(components["java"])
+        }
+    }
 }
 
 configure<KtlintExtension> {
