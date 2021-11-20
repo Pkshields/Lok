@@ -7,6 +7,8 @@ version = "1.0-SNAPSHOT"
 plugins {
     kotlin("jvm") version "1.5.30"
 
+    `maven-publish`
+
     id("io.gitlab.arturbosch.detekt").version("1.18.1")
     id("org.jlleitschuh.gradle.ktlint").version("10.2.0")
 }
