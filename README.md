@@ -21,7 +21,7 @@ Then add Lok to your dependencies.
 
 ```kotlin
 dependencies {
-    implementation("dev.paulshields:lok:1.0")
+    implementation("dev.paulshields:lok:1.1")
 }
 ```
 
@@ -40,7 +40,7 @@ Then add Lok to your dependencies.
 
 ```gradle
 dependencies {
-    implementation 'dev.paulshields:lok:1.0'
+    implementation 'dev.paulshields:lok:1.1'
 }
 ```
 

@@ -3,18 +3,18 @@ import org.jlleitschuh.gradle.ktlint.KtlintExtension
 
 val libraryGroupId = "dev.paulshields"
 val libraryName = "lok"
-val libraryVersion = "1.0"
+val libraryVersion = "1.1"
 
 group = "$libraryGroupId.$libraryName"
 version = libraryVersion
 
 plugins {
-    kotlin("jvm") version "1.5.30"
+    kotlin("jvm") version "1.7.20"
 
     `maven-publish`
 
-    id("io.gitlab.arturbosch.detekt").version("1.18.1")
-    id("org.jlleitschuh.gradle.ktlint").version("10.2.0")
+    id("io.gitlab.arturbosch.detekt").version("1.21.0")
+    id("org.jlleitschuh.gradle.ktlint").version("11.0.0")
 }
 
 repositories {
@@ -22,7 +22,7 @@ repositories {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "11"
 }
 
 publishing {
@@ -52,10 +52,10 @@ tasks.test {
 dependencies {
     implementation(kotlin("stdlib"))
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.1")
-    testImplementation("io.mockk:mockk:1.12.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.0")
+    testImplementation("io.mockk:mockk:1.13.2")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
 
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
 }
